@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "cpf.dtd">
+<properties>
+
+  <simple name="Import" type="string"><value>$(find rtt_ros_integration)/lib/orocos</value></simple>
+  <simple name="Import" type="string"><value>$(find rtt_ros_integration_std_msgs)/lib/orocos</value></simple>
+
+  <simple name="Import" type="string"><value>$(find kuka_lwr_fri_typekit)/lib/orocos</value></simple>
+  <simple name="Import" type="string"><value>$(find lwr_fri)/lib/orocos</value></simple>
+  <simple name="Import" type="string"><value>$(find ros_typekit)/install/lib/orocos</value></simple>
+  <simple name="Import" type="string"><value>$(find brics_actuator)/lib/orocos</value></simple>
+  <simple name="Import" type="string"><value>$(find ocl)/install/lib/orocos</value></simple>
+  <simple name="Import" type="string"><value>$(find trajectory_generators)/lib/orocos</value></simple>
+  <simple name="Import" type="string"><value>$(find kdl_typekit)/install/lib/orocos</value></simple>
+  <simple name="Import" type="string"><value>$(find brics_research_camp_lwr_setup)/lib/orocos</value></simple>
+<simple name="Import" type="string"><value>$(find dual_arm_rtt)/lib</value></simple>
+
+
+  <struct name="KULCoordinator" type="OCL::LuaComponent">
+    <struct name="Activity" type="Activity">
+      <simple name="Priority" type="short"><value>0</value></simple>
+      <simple name="Scheduler" type="string"><value>ORO_SCHED_OTHER</value></simple>
+    </struct>
+    <struct name="Peers" type="PropertyBag">
+      <simple type="string"><value>KULRobot</value></simple>
+ <!--       <simple type="string"><value>CartGeneratorPos</value></simple> -->
+    </struct>
+
+  </struct>
+
+  <struct name="IPACoordinator" type="OCL::LuaComponent">
+    <struct name="Activity" type="Activity">
+      <simple name="Priority" type="short"><value>0</value></simple>
+      <simple name="Scheduler" type="string"><value>ORO_SCHED_OTHER</value></simple>
+    </struct>
+    <struct name="Peers" type="PropertyBag">
+      <simple type="string"><value>IPARobot</value></simple>
+<!--       <simple type="string"><value>CartGeneratorPos</value></simple> -->
+    </struct>
+
+  </struct>
+
+  <struct name="DropCoordinator" type="OCL::LuaComponent">
+    <struct name="Activity" type="Activity">
+      <simple name="Priority" type="short"><value>0</value></simple>
+      <simple name="Scheduler" type="string"><value>ORO_SCHED_OTHER</value></simple>
+    </struct>
+    <struct name="Peers" type="PropertyBag">
+      <simple type="string"><value>IPARobot</value></simple>
+      <simple type="string"><value>KULRobot</value></simple>
+      <simple type="string"><value>IPAKinematics</value></simple>
+      <simple type="string"><value>KULKinematics</value></simple>
+      <simple type="string"><value>MotionCalculator</value></simple>
+      <simple type="string"><value>CartGeneratorPos</value></simple>
+      <simple type="string"><value>Reporter</value></simple>
+    </struct>
+
+  </struct>
+
+
+  <struct name="KULRobot" type="lwr_fri_rtt_2_0::FRIComponent">
+    <struct name="Activity" type="Activity">
+      <simple name="Priority" type="short"><value>0</value></simple>
+      <simple name="Period" type="double"><value>.001</value></simple>
+      <simple name="Scheduler" type="string"><value>ORO_SCHED_OTHER</value></simple>
+    </struct>
+    <struct name="Properties" type="PropertyBag">
+      <simple name="local_port" type="long"><value>49939</value></simple>
+      <simple name="control_mode" type="long"><value>2</value></simple>
+    </struct>
+    <simple name="AutoConf" type="boolean"><value>1</value></simple>
+    <simple name="AutoStart" type="boolean"><value>1</value></simple>
+  </struct>
+
+  <struct name="IPARobot" type="lwr_fri_rtt_2_0::FRIComponent">
+    <struct name="Activity" type="Activity">
+      <simple name="Priority" type="short"><value>0</value></simple>
+      <simple name="Period" type="double"><value>0.001</value></simple>
+      <simple name="Scheduler" type="string"><value>ORO_SCHED_OTHER</value></simple>
+    </struct>
+    <struct name="Properties" type="PropertyBag">
+      <simple name="local_port" type="long"><value>49937</value></simple>
+      <simple name="control_mode" type="long"><value>2</value></simple>
+    </struct>
+    <simple name="AutoConf" type="boolean"><value>1</value></simple>
+    <simple name="AutoStart" type="boolean"><value>1</value></simple>
+  </struct>
+
+  <!--struct name="MotionCalculator" type="brics_research_camp::MotionCoordinatorVel">
+    <struct name="Activity" type="Activity">
+      <simple name="Priority" type="short"><value>0</value></simple>
+      <simple name="Scheduler" type="string"><value>ORO_SCHED_OTHER</value></simple>
+    </struct>
+    <simple name="UpdateProperties" type="string"><value>$(find brics_research_camp_lwr_setup)/cpf/MotionCoordinator.cpf</value></simple>
+    <simple name="AutoConf" type="boolean"><value>1</value></simple>
+    <simple name="AutoStart" type="boolean"><value>0</value></simple>
+  </struct-->
+
+  
+  <!--struct name="CartGeneratorPos" type="trajectory_generators::CartesianGeneratorPos">
+    <struct name="Activity" type="PeriodicActivity">
+      <simple name="Period" type="double"><value>0.005</value></simple>
+      <simple name="Priority" type="short"><value>1</value></simple>
+      <simple name="Scheduler" type="string"><value>ORO_SCHED_RT</value></simple>
+    </struct>
+    <simple name="AutoConf" type="boolean"><value>1</value></simple>
+    <simple name="AutoStart" type="boolean"><value>0</value></simple>
+    <simple name="UpdateProperties" type="string"><value>$(find brics_research_camp_lwr_setup)/cpf/CartPosGenerator.cpf</value></simple>
+
+  </struct-->
+
+  <struct name="KULKinematics" type="OCL::LWRKinematics">
+    <struct name="Activity" type="Activity">
+      <simple name="Priority" type="short"><value>0</value></simple>
+      <simple name="Period" type="double"><value>0.005</value></simple>
+      <simple name="Scheduler" type="string"><value>ORO_SCHED_OTHER</value></simple>
+    </struct>
+    <simple name="AutoConf" type="boolean"><value>1</value></simple>
+    <simple name="AutoStart" type="boolean"><value>0</value></simple>
+    <simple name="UpdateProperties" type="string"><value>$(find brics_research_camp_lwr_setup)/cpf/KULKinematics.cpf</value></simple>
+  </struct>
+
+  <struct name="IPAKinematics" type="OCL::LWRKinematics">
+    <struct name="Activity" type="Activity">
+      <simple name="Priority" type="short"><value>0</value></simple>
+      <simple name="Period" type="double"><value>0.005</value></simple>
+      <simple name="Scheduler" type="string"><value>ORO_SCHED_OTHER</value></simple>
+    </struct>
+    <simple name="AutoConf" type="boolean"><value>1</value></simple>
+    <simple name="AutoStart" type="boolean"><value>0</value></simple>
+    <simple name="UpdateProperties" type="string"><value>$(find brics_research_camp_lwr_setup)/cpf/IPAKinematics.cpf</value></simple>
+  </struct>
+
+   <struct name="Reporter" type="OCL::FileReporting"> 
+    <struct name="Activity" type="Activity">
+      <simple name="Priority" type="short"><value>0</value></simple>
+      <simple name="Period" type="double"><value>0.05</value></simple>
+      <simple name="Scheduler" type="string"><value>ORO_SCHED_OTHER</value></simple>
+    </struct>
+
+
+<struct name="IPACircularTrajectory" type="Dual_arm_rtt">
+    <struct name="Activity" type="Activity">
+      <simple name="Priority" type="short"><value>0.005</value></simple>
+      <simple name="Scheduler" type="string"><value>ORO_SCHED_OTHER</value></simple>
+    </struct>
+    <!--struct name="Peers" type="PropertyBag">
+      <simple type="string"><value>KULRobot</value></simple>
+ <       <simple type="string"><value>CartGeneratorPos</value></simple> >
+    </struct-->
+
+  </struct>
+
+
+    <simple name="AutoConf" type="boolean"><value>1</value></simple>
+    <simple name="AutoStart" type="boolean"><value>0</value></simple>
+    <simple name="LoadProperties" type="string"><value>$(find brics_research_camp_lwr_setup)/cpf/Reporter.cpf</value></simple>
+    <struct name="Peers" type="PropertyBag">
+      <simple type="string"><value>KULRobot</value></simple>
+      <simple type="string"><value>KULKinematics</value></simple>
+    </struct>
+  </struct> 
+
+
+
+</properties>
