@@ -20,9 +20,12 @@ if(ROS_ROOT)
   rosbuild_init()
   rosbuild_find_ros_package(rtt)
   message("rtt_path: ${rtt_PACKAGE_PATH}")
+  rosbuild_find_ros_package(ocl)
+  message("ocl_path: ${ocl_PACKAGE_PATH}")
 endif()
 find_package(Orocos-RTT PATHS ${rtt_PACKAGE_PATH}/install)
 include(${OROCOS-RTT_USE_FILE_PATH}/UseOROCOS-RTT.cmake)
+include_directories(${ocl_PACKAGE_PATH}/install/include)
 
 # Defines the orocos_* cmake macros. See that file for additional
 # documentation.
@@ -62,11 +65,12 @@ orocos_component(dual_arm_rtt dual_arm_rtt-component.cpp) # ...you may add multi
 # Creates a plugin library libdual_arm_rtt-service-<target>.so or libdual_arm_rtt-plugin-<target>.so
 # and installs in the directory lib/orocos/dual_arm_rtt/plugins/
 #
-orocos_plugin(dual_arm_rtt-service CircleGeneratorService.cpp) # ...you may add multiple source files
+orocos_plugin(dual_arm_rtt-approach ApproachService.cpp) # ...you may add multiple source files
+orocos_plugin(dual_arm_rtt-circle CircleGeneratorService.cpp) # ...you may add multiple source files
+
 #orocos_plugin(dual_arm_rtt-plugin dual_arm_rtt-plugin.cpp) # ...you may add multiple source files
 #
 # You may add multiple orocos_plugin statements.
-
 
 #
 # Additional headers (not in typekit):

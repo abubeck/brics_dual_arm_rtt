@@ -218,17 +218,30 @@ dual_arm_rtt/fast:
 .PHONY : dual_arm_rtt/fast
 
 #=============================================================================
-# Target rules for targets named dual_arm_rtt-service
+# Target rules for targets named dual_arm_rtt-approach
 
 # Build rule for target.
-dual_arm_rtt-service: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 dual_arm_rtt-service
-.PHONY : dual_arm_rtt-service
+dual_arm_rtt-approach: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dual_arm_rtt-approach
+.PHONY : dual_arm_rtt-approach
 
 # fast build rule for target.
-dual_arm_rtt-service/fast:
-	$(MAKE) -f CMakeFiles/dual_arm_rtt-service.dir/build.make CMakeFiles/dual_arm_rtt-service.dir/build
-.PHONY : dual_arm_rtt-service/fast
+dual_arm_rtt-approach/fast:
+	$(MAKE) -f CMakeFiles/dual_arm_rtt-approach.dir/build.make CMakeFiles/dual_arm_rtt-approach.dir/build
+.PHONY : dual_arm_rtt-approach/fast
+
+#=============================================================================
+# Target rules for targets named dual_arm_rtt-circle
+
+# Build rule for target.
+dual_arm_rtt-circle: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dual_arm_rtt-circle
+.PHONY : dual_arm_rtt-circle
+
+# fast build rule for target.
+dual_arm_rtt-circle/fast:
+	$(MAKE) -f CMakeFiles/dual_arm_rtt-circle.dir/build.make CMakeFiles/dual_arm_rtt-circle.dir/build
+.PHONY : dual_arm_rtt-circle/fast
 
 #=============================================================================
 # Target rules for targets named rosbuild_precompile
@@ -360,12 +373,36 @@ tests/fast:
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
 .PHONY : tests/fast
 
+ApproachService.o: ApproachService.cpp.o
+.PHONY : ApproachService.o
+
+# target to build an object file
+ApproachService.cpp.o:
+	$(MAKE) -f CMakeFiles/dual_arm_rtt-approach.dir/build.make CMakeFiles/dual_arm_rtt-approach.dir/ApproachService.cpp.o
+.PHONY : ApproachService.cpp.o
+
+ApproachService.i: ApproachService.cpp.i
+.PHONY : ApproachService.i
+
+# target to preprocess a source file
+ApproachService.cpp.i:
+	$(MAKE) -f CMakeFiles/dual_arm_rtt-approach.dir/build.make CMakeFiles/dual_arm_rtt-approach.dir/ApproachService.cpp.i
+.PHONY : ApproachService.cpp.i
+
+ApproachService.s: ApproachService.cpp.s
+.PHONY : ApproachService.s
+
+# target to generate assembly for a file
+ApproachService.cpp.s:
+	$(MAKE) -f CMakeFiles/dual_arm_rtt-approach.dir/build.make CMakeFiles/dual_arm_rtt-approach.dir/ApproachService.cpp.s
+.PHONY : ApproachService.cpp.s
+
 CircleGeneratorService.o: CircleGeneratorService.cpp.o
 .PHONY : CircleGeneratorService.o
 
 # target to build an object file
 CircleGeneratorService.cpp.o:
-	$(MAKE) -f CMakeFiles/dual_arm_rtt-service.dir/build.make CMakeFiles/dual_arm_rtt-service.dir/CircleGeneratorService.cpp.o
+	$(MAKE) -f CMakeFiles/dual_arm_rtt-circle.dir/build.make CMakeFiles/dual_arm_rtt-circle.dir/CircleGeneratorService.cpp.o
 .PHONY : CircleGeneratorService.cpp.o
 
 CircleGeneratorService.i: CircleGeneratorService.cpp.i
@@ -373,7 +410,7 @@ CircleGeneratorService.i: CircleGeneratorService.cpp.i
 
 # target to preprocess a source file
 CircleGeneratorService.cpp.i:
-	$(MAKE) -f CMakeFiles/dual_arm_rtt-service.dir/build.make CMakeFiles/dual_arm_rtt-service.dir/CircleGeneratorService.cpp.i
+	$(MAKE) -f CMakeFiles/dual_arm_rtt-circle.dir/build.make CMakeFiles/dual_arm_rtt-circle.dir/CircleGeneratorService.cpp.i
 .PHONY : CircleGeneratorService.cpp.i
 
 CircleGeneratorService.s: CircleGeneratorService.cpp.s
@@ -381,7 +418,7 @@ CircleGeneratorService.s: CircleGeneratorService.cpp.s
 
 # target to generate assembly for a file
 CircleGeneratorService.cpp.s:
-	$(MAKE) -f CMakeFiles/dual_arm_rtt-service.dir/build.make CMakeFiles/dual_arm_rtt-service.dir/CircleGeneratorService.cpp.s
+	$(MAKE) -f CMakeFiles/dual_arm_rtt-circle.dir/build.make CMakeFiles/dual_arm_rtt-circle.dir/CircleGeneratorService.cpp.s
 .PHONY : CircleGeneratorService.cpp.s
 
 dual_arm_rtt-component.o: dual_arm_rtt-component.cpp.o
@@ -420,7 +457,8 @@ help:
 	@echo "... ROSBUILD_gensrv_lisp"
 	@echo "... clean-test-results"
 	@echo "... dual_arm_rtt"
-	@echo "... dual_arm_rtt-service"
+	@echo "... dual_arm_rtt-approach"
+	@echo "... dual_arm_rtt-circle"
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
@@ -437,6 +475,9 @@ help:
 	@echo "... test-results"
 	@echo "... test-results-run"
 	@echo "... tests"
+	@echo "... ApproachService.o"
+	@echo "... ApproachService.i"
+	@echo "... ApproachService.s"
 	@echo "... CircleGeneratorService.o"
 	@echo "... CircleGeneratorService.i"
 	@echo "... CircleGeneratorService.s"

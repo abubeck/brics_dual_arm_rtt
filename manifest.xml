@@ -5,6 +5,8 @@
     <depend package="rtt" />
     <depend package="ocl" />
     <depend package="brics_actuator"/>
+    <depend package="tf"/>
+<depend package="kdl_typekit"/>
 <!--     <depend package="rtt_ros_integrator"/> -->
 
 </package>
