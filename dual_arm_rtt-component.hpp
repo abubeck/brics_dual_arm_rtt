@@ -3,10 +3,14 @@
 
 #include <rtt/TaskContext.hpp>
 #include <rtt/Port.hpp>
+#include <rtt/Property.hpp>
 
 #include <brics_actuator/CartesianPose.h>
 
 #include <iostream>
+#include <stdlib.h>
+
+#include "friComm.h"
 
 using namespace RTT;
 
@@ -115,6 +119,12 @@ class Dual_arm_rtt
 
     kul_read_port.read(desired_position);
 
+    log(Warning)<<"Opening Gripper"<<endlog();
+    if(this->hasPeer("KULRobot")){
+      this->getPeer("KULRobot")->properties()->getPropertyType<tFriKrlData>("toKRL")->value().intData[1]=2;
+
+    }
+//   stopHook();
     return true;
 
   }
@@ -123,7 +133,7 @@ class Dual_arm_rtt
 
     kul_read_port.read(desired_position);
 //    cout<<"**********************************\n";
-//    cout<<"Current: "<<desired_position.position.x<<","<<desired_position.position.y<<desired_position.position.z<<endl;
+//    log(Error)<<desired_position.position.x<<","<<desired_position.position.y<<desired_position.position.z<<endlog();
     getNextPose.call(&desired_position);
 
 //    cout<<"Commanded: "<<desired_position.position.x<<","<<desired_position.position.y<<desired_position.position.z<<endl;

@@ -2,6 +2,7 @@
 #include <brics_actuator/CartesianPose.h>
 #include <rtt/Port.hpp>
 #include <kdl/frames.hpp>
+#include "friComm.h"
 #define SIGN(x) ((x)<0?-1:1)
 #define STEP_OR 0.007
 #define STEP_POS 0.005
@@ -81,6 +82,7 @@ public:
   }
   void getNextPose(brics_actuator::CartesianPose* curr_next)
   {
+
     //    cout<<"curr: "<<curr_next->orientation.x<<","<<curr_next->orientation.y<<","<<curr_next->orientation.z<<","<<curr_next->orientation.w<<","<<endl;
     //    relative_position_port->read(relative_position);
     measured_position_port->read(measured_position);
@@ -116,7 +118,32 @@ public:
       dummy_ow=SIGN(dummy_ow)*STEP_OR;
     }
 
-//    if(dummy_ow*dummy_ow + dummy_ox*dummy_ox + dummy_oy*dummy_oy + dummy_oz*dummy_oz + dummy_x*dummy_x + dummy_x + dummy_z*dummy_z)
+//    log(Error)<<sqrt(  )<<endlog();
+//    cout<<sqrt( (measured_position.position.x-goal[0]) *(measured_position.position.x-goal[0])   + (measured_position.position.y-goal[1]) *(measured_position.position.y -goal[1]) + (measured_position.position.z-goal[2]) *(measured_position.position.z-goal[2]) )<<endl;
+
+    if(sqrt((measured_position.position.x-goal[0]) *(measured_position.position.x-goal[0])   + (measured_position.position.y-goal[1]) *(measured_position.position.y -goal[1]) + (measured_position.position.z-goal[2]) *(measured_position.position.z-goal[2])) < 0.3)
+    {
+
+//      ((Property<tFriKrlData>)getOwner()->getPeer("KULRobot")->properties()->getProperty("toKRL")).value().intData[1]=3;
+
+//      ((Property<tFriKrlData>)getPeer("KULRobot")->getProperty("toKRL")).value().intData[1]=3;
+      if(this->getOwner()->hasPeer("KULRobot")){
+            this->getOwner()->getPeer("KULRobot")->properties()->getPropertyType<tFriKrlData>("toKRL")->value().intData[1]=3;
+      }
+      log(Warning)<<"Grasp position reached."<<endlog();
+    }
+
+    if(sqrt(dummy_x*dummy_x + dummy_y*dummy_y + dummy_z*dummy_z) < 0.01)
+    {
+
+//      ((Property<tFriKrlData>)getOwner()->getPeer("KULRobot")->properties()->getProperty("toKRL")).value().intData[1]=3;
+
+//      ((Property<tFriKrlData>)getPeer("KULRobot")->getProperty("toKRL")).value().intData[1]=3;
+      if(this->getOwner()->hasPeer("KULRobot")){
+            this->getOwner()->getPeer("KULRobot")->properties()->getPropertyType<tFriKrlData>("toKRL")->value().intData[1]=3;
+      }
+      log(Warning)<<"Grasp position reached."<<endlog();
+    }
 
 
 
